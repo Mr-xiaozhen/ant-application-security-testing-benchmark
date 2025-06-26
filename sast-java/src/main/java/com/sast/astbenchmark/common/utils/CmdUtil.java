@@ -4,10 +4,25 @@ public class CmdUtil {
 
     public static void run(String cmd) {
         try {
-            Runtime.getRuntime().exec(cmd);
-        }catch (Exception e) {
+            if (isValidCommand(cmd)) {
+                Runtime.getRuntime().exec(cmd);
+            } else {
+                throw new IllegalArgumentException("Invalid command");
+            }
+        } catch (Exception e) {
             return;
         }
+    }
+
+    private static boolean isValidCommand(String cmd) {
+        // Define a whitelist of allowed commands
+        String[] allowedCommands = {"ls", "pwd", "echo"};
+        for (String allowed : allowedCommands) {
+            if (cmd.equals(allowed)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String getCmdWithContextSensitive(int x, String cmd) {
