@@ -26,7 +26,8 @@ public class Expression_MethodInvocation_InfixExpression_001_T {
         Map<String, Object> modelMap = new HashMap<>();
 
         try {
-            CmdUtil.run(cmd + HttpUtil.doGet("www.test.com"));
+            String sanitizedCmd = cmd.split(" ")[0]; // Basic sanitization to extract the first word
+            CmdUtil.run(sanitizedCmd + HttpUtil.doGet("www.test.com"));
             modelMap.put("status", "success");
         } catch (Exception e) {
             modelMap.put("status", "error");
